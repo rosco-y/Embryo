@@ -45,13 +45,13 @@ namespace Embyo
             else
             {
                 _colorsDictionary.Add(_hexValue, 0);
+                _hashValue = (int)r + (int)g + (int)b;
+
+                _dmc = Convert(r, g, b);
+                _colors.Add(_hexValue);
+                _cRGBList.Add(this);
             }
 
-            _hashValue = (int)r + (int)g + (int)b;
-
-            _dmc = Convert(r, g, b);
-            _colors.Add(_hexValue);
-            _cRGBList.Add(this);
         }
 
         private string Convert(byte r, byte g, byte b)
