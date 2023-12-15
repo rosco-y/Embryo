@@ -49,7 +49,7 @@ namespace Embyo
 
                 _dmc = Convert(r, g, b);
                 _colors.Add(_hexValue);
-                _cRGBList.Add(this);
+                _cRGBList.Add((cRGB)this.MemberwiseClone());
             }
 
         }

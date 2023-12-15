@@ -108,26 +108,26 @@ namespace Embyo
             Properties.Settings.Default.Save();
         }
 
-        private void Embryo_Load(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.Maximised)
-            {
-                Location = Properties.Settings.Default.Location;
-                WindowState = FormWindowState.Maximized;
-                Size = Properties.Settings.Default.Size;
-            }
-            else if (Properties.Settings.Default.Minimised)
-            {
-                Location = Properties.Settings.Default.Location;
-                WindowState = FormWindowState.Minimized;
-                Size = Properties.Settings.Default.Size;
-            }
-            else
-            {
-                Location = Properties.Settings.Default.Location;
-                Size = Properties.Settings.Default.Size;
-            }
-        }
+        //private void Embryo_Load(object sender, EventArgs e)
+        //{
+        //    if (Properties.Settings.Default.Maximised)
+        //    {
+        //        Location = Properties.Settings.Default.Location;
+        //        WindowState = FormWindowState.Maximized;
+        //        Size = Properties.Settings.Default.Size;
+        //    }
+        //    else if (Properties.Settings.Default.Minimised)
+        //    {
+        //        Location = Properties.Settings.Default.Location;
+        //        WindowState = FormWindowState.Minimized;
+        //        Size = Properties.Settings.Default.Size;
+        //    }
+        //    else
+        //    {
+        //        Location = Properties.Settings.Default.Location;
+        //        Size = Properties.Settings.Default.Size;
+        //    }
+        //}
 
         private void reportToolStripMenuItem_Click(object sender, EventArgs e)
         {
