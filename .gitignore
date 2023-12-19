@@ -398,3 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 PUBLIC/dmc/
 PUBLIC/dmcapp/
+PUBLIC/CrossStitchPatternMaker/
+PUBLIC/DMC-Image-Converter/
