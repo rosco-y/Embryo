@@ -20,7 +20,7 @@ namespace Embyo
         Color _pixelColor;
         string _hexValue;
         HashSet<string> _colors;
-        Dictionary<int, string> _colorsDictionary;
+        Dictionary<String, int> _colorsDictionary;
 
         List<cRGB> _cRGBList;
         string _dmc;
@@ -34,7 +34,7 @@ namespace Embyo
 
         public void loadColorsDictionary()
         {
-            _colorsDictionary = new Dictionary<int, string>();
+            _colorsDictionary = new Dictionary<string ,int>();
 
             using (var flossStream = new FileStream("C:\\PROJECTS\\Embryo\\Embyo\\Embyo\\floss2hex.dat", FileMode.Open))
             using (var flossReader = new StreamReader(flossStream))
@@ -43,7 +43,7 @@ namespace Embyo
                 {
                     var line = flossReader.ReadLine();
                     var splitLine = line.Split(' ');
-                    _colorsDictionary.Add(int.Parse(splitLine[0]), splitLine[1]);
+                    _colorsDictionary.Add(splitLine[1], int.Parse(splitLine[0]));
                 }
             }
         }
@@ -55,8 +55,8 @@ namespace Embyo
             _b = b;
 
 
-            //_pixelColor = Color.FromArgb(r, g, b);
-            //_hexValue = $"{_pixelColor.R.ToString("X2")}{_pixelColor.G.ToString("X2")}{_pixelColor.B.ToString("X2")}";
+            _pixelColor = Color.FromArgb(r, g, b);
+            _hexValue = $"{_pixelColor.R.ToString("X2")}{_pixelColor.G.ToString("X2")}{_pixelColor.B.ToString("X2")}";
             //if (_colorsDictionary.ContainsKey(_hexValue))
             //{
             //    _colorsDictionary[_hexValue]++;
