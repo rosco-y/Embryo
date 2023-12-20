@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Runtime.CompilerServices;
+using System.IO;
+using System.Reflection;
 namespace Embyo
 {
     internal class cRGB : IComparable<cRGB>
@@ -18,15 +20,32 @@ namespace Embyo
         Color _pixelColor;
         string _hexValue;
         HashSet<string> _colors;
-        Dictionary<string, int> _colorsDictionary;
+        Dictionary<int, string> _colorsDictionary;
+
         List<cRGB> _cRGBList;
         string _dmc;
 
         public cRGB()
         {
             _colors = new HashSet<string>();
-            _colorsDictionary = new Dictionary<string, int>();
             _cRGBList = new List<cRGB>();
+            loadColorsDictionary();
+        }
+
+        public void loadColorsDictionary()
+        {
+            _colorsDictionary = new Dictionary<int, string>();
+
+            using (var flossStream = new FileStream("C:\\PROJECTS\\Embryo\\Embyo\\Embyo\\floss2hex.dat", FileMode.Open))
+            using (var flossReader = new StreamReader(flossStream))
+            {
+                while (!flossReader.EndOfStream)
+                {
+                    var line = flossReader.ReadLine();
+                    var splitLine = line.Split(' ');
+                    _colorsDictionary.Add(int.Parse(splitLine[0]), splitLine[1]);
+                }
+            }
         }
 
         public void AddPixel(byte r, byte g, byte b)
@@ -34,23 +53,23 @@ namespace Embyo
             _r = r;
             _g = g;
             _b = b;
-            
 
-            _pixelColor = Color.FromArgb(r, g, b);
-            _hexValue = $"{_pixelColor.R.ToString("X2")}{_pixelColor.G.ToString("X2")}{_pixelColor.B.ToString("X2")}";
-            if (_colorsDictionary.ContainsKey(_hexValue) )
-            {
-                _colorsDictionary[_hexValue]++;
-            }
-            else
-            {
-                _colorsDictionary.Add(_hexValue, 0);
-                _hashValue = (int)r + (int)g + (int)b;
 
-                _dmc = Convert(r, g, b);
-                _colors.Add(_hexValue);
-                _cRGBList.Add((cRGB)this.MemberwiseClone());
-            }
+            //_pixelColor = Color.FromArgb(r, g, b);
+            //_hexValue = $"{_pixelColor.R.ToString("X2")}{_pixelColor.G.ToString("X2")}{_pixelColor.B.ToString("X2")}";
+            //if (_colorsDictionary.ContainsKey(_hexValue))
+            //{
+            //    _colorsDictionary[_hexValue]++;
+            //}
+            //else
+            //{
+            //    _colorsDictionary.Add(_hexValue, 0);
+            //    _hashValue = (int)r + (int)g + (int)b;
+
+            //    _dmc = Convert(r, g, b);
+            //    _colors.Add(_hexValue);
+            //    _cRGBList.Add((cRGB)this.MemberwiseClone());
+            //}
 
         }
 
@@ -82,7 +101,7 @@ namespace Embyo
         public async void Statistics()
         {
             _colorCount = _colorsDictionary.Keys.Count;
-            string [] hashValues = _colors.ToArray();
+            string[] hashValues = _colors.ToArray();
             Array.Sort(hashValues);
             _mode = hashValues[hashValues.Length / 2];
             _max = hashValues[hashValues.Length - 1];
@@ -103,7 +122,7 @@ namespace Embyo
                 {
 
                     String lstItem = $"HexCode: {c.HexValue}, DMC Code: {_dmc}";
-                    _reportForm.AddString (lstItem);
+                    _reportForm.AddString(lstItem);
                 }
             });
             DateTime endReport = DateTime.Now;
