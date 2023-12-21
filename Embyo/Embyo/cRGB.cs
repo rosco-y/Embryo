@@ -20,7 +20,6 @@ namespace Embyo
         Color _pixelColor;
         string _hexValue;
         HashSet<string> _colors;
-        Dictionary<String, int> _colorsDictionary;
 
         List<cRGB> _cRGBList;
         string _dmc;
@@ -32,21 +31,6 @@ namespace Embyo
             loadColorsDictionary();
         }
 
-        public void loadColorsDictionary()
-        {
-            _colorsDictionary = new Dictionary<string ,int>();
-
-            using (var flossStream = new FileStream("C:\\PROJECTS\\Embryo\\Embyo\\Embyo\\floss2hex.dat", FileMode.Open))
-            using (var flossReader = new StreamReader(flossStream))
-            {
-                while (!flossReader.EndOfStream)
-                {
-                    var line = flossReader.ReadLine();
-                    var splitLine = line.Split(' ');
-                    _colorsDictionary.Add(splitLine[1], int.Parse(splitLine[0]));
-                }
-            }
-        }
 
         public void AddPixel(byte r, byte g, byte b)
         {

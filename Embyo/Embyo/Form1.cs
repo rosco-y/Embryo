@@ -35,6 +35,7 @@ namespace Embyo
                 picBoxPhoto.Dock = DockStyle.Fill;
                 picBoxPhoto.Image = Displayimage;
                 Bitmap img = new Bitmap(dlgOpenFile.FileName);
+                cDMC = new cDMC(img);
                 CountColors(img);
                 _rgb.Statistics();
                 Cursor = Cursors.Default;
