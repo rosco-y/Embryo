@@ -69,12 +69,17 @@ namespace Embyo
             var cnt = new HashSet<System.Drawing.Color>();
 
             Bitmap bmp = picBoxPhoto;
+            Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+            BitmapData bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
             // Copy the RGB values into the array.
+            int bytes = bmpData.Stride * bmp.Height;
+            byte[] rgbValues = new byte[bytes];
+            IntPtr ptr = bmpData.Scan0;
             Marshal.Copy(ptr, rgbValues, 0, bytes);
 
             int count = 0;
             int stride = bmpData.Stride;
-
+            
             for (int column = 0; column < bmpData.Height; column++)
             {
                 for (int row = 0; row < bmpData.Width; row++)
@@ -83,8 +88,7 @@ namespace Embyo
                     g[count] = rgbValues[(column * stride) + (row * 3) + 1];
                     r[count] = rgbValues[(column * stride) + (row * 3) + 2];
                     var color = new
-                    _rgb.AddPixel(r[count], g[count], b[count]);
-                    var _hexValue = $"{r.ToString("X2")}{g.ToString("X2")}{b.ToString("X2")}";
+                    _rgb.AddPixel(r[count], g[count], b[count]);                    
                     count++;
                 }
             }
